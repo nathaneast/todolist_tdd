@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {ChangeEvent, useState} from 'react';
 
 interface Todo {
   todo: string;
@@ -18,14 +18,35 @@ const initTodoList = [
 
 const TodoList = () => {
   const [todoList, setTodoList] = useState(initTodoList);
+  const [todoInputText, setTodoInputText] = useState('');
+
+  const onChangeInputTodo = (e: ChangeEvent<HTMLInputElement>) => {
+    setTodoInputText(e.target.value);
+  };
+
+  const onSubmit = () => {
+    setTodoList((prev: Todo[]) => [
+      ...prev,
+      {
+        todo: todoInputText,
+        isDone: false,
+      },
+    ]);
+  };
 
   return (
     <div>
       <h1>TODO LIST</h1>
 
       <section>
-        <input type={'text'} />
-        <button type={'submit'}>등록</button>
+        <input
+          type={'text'}
+          aria-label="todo-input"
+          onChange={onChangeInputTodo}
+        />
+        <button type={'submit'} onClick={onSubmit}>
+          등록
+        </button>
       </section>
 
       <ul>
