@@ -3,4 +3,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': 'ts-jest',
   },
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: [
+    "<rootDir>/src/setupTests.ts"
+  ]
 };
