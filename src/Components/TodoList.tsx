@@ -24,6 +24,12 @@ const TodoList = () => {
     setTodoInputText(e.target.value);
   };
 
+  const deleteTodo = (targetIndex: number) => {
+    const deletedItems =
+      todoList.filter((_item: Todo, index: number)=> targetIndex !== index);
+    setTodoList(deletedItems);
+  }
+
   const onSubmit = () => {
     setTodoList((prev: Todo[]) => [
       ...prev,
@@ -51,7 +57,11 @@ const TodoList = () => {
 
       <ul>
         {todoList.map((item: Todo, index: number) => (
-          <li key={index}>{item.todo}</li>
+          <li key={index} data-testid={`todo_${index}`}>
+            <input type={'checkbox'} checked={item.isDone} />
+            <span data-testid={`todo_text_${index}`}>{item.todo}</span>
+            <button data-testid={`todo_delete_button_${index}`} onClick={() => deleteTodo(index)}>삭제</button>
+          </li>
         ))}
       </ul>
     </div>
